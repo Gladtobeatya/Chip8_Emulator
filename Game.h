@@ -9,7 +9,7 @@
 // constants
 
 // system core
-const int FPS = 60;
+/*const int FPS = 60;
 const int FRAME_DELAY = 1000 / FPS;
 
 const int SCREEN_WIDTH = 640;
@@ -43,4 +43,4 @@ private:
 	bool isRunning;
 	SDL_Window* window;
 	SDL_Renderer* renderer;
-};
+};*/

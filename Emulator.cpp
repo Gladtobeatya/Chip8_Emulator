@@ -1,5 +1,6 @@
 #include "Emulator.h"
 #include <fstream>
+#include <iostream>
 
 void Emulator::loadROM(const std::string& path)
 {
@@ -14,10 +15,13 @@ void Emulator::loadROM(const std::string& path)
 	// Move the file pointer back to the beginning of the file
     file.seekg(0, std::ios::beg);
 
-    file.read(
+    if(!file.read(
         reinterpret_cast<char*>(cpu.memory.data() + START_ADDRESS),
         size
-    );
+    ))
+		throw std::runtime_error("ROM read failed");
+	//cpu.test();
+
 }
 
 void Emulator::run()

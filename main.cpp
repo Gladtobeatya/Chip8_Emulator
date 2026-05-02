@@ -6,7 +6,7 @@ int main(int argc, char** argv) {
     
     try {
         Emulator emulator;
-        emulator.loadROM("IBM Logo.ch8");
+        emulator.loadROM("ufo.rom");
         emulator.run();
     }
     catch (const std::exception& e) {
