@@ -232,6 +232,16 @@ void CPU::test()
 	memory[0x221] = 0x0A;
 }
 
+void CPU::onKeyDown(uint8_t key)
+{
+	keypad[key] = 1;
+}
+
+void CPU::onKeyUp(uint8_t key)
+{
+	keypad[key] = 0;
+}
+
 void CPU::OP_00E0()
 {
 	for(auto & row : screen)
@@ -421,6 +431,8 @@ void CPU::OP_FX0A(uint8_t X)
 			return;
 		}
 	}
+	// Still waiting for key press
+	pc -= 2; 
 }
 
 void CPU::OP_FX15(uint8_t X)
@@ -440,7 +452,7 @@ void CPU::OP_FX1E(uint8_t X)
 
 void CPU::OP_FX29(uint8_t X)
 {
-	// Each character is 5 bytes long, and the font sprites are stored starting at memory location 0x000
+	// Each character is 5 bytes long
 	I = V[X] * 5;
 }
 

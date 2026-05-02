@@ -23,6 +23,29 @@ bool Renderer::init()
 	return bIsRunning = true;
 }
 
+void Renderer::initKeyMap()
+{
+	keyMap[SDL_SCANCODE_1] = 0x1;
+	keyMap[SDL_SCANCODE_2] = 0x2;
+	keyMap[SDL_SCANCODE_3] = 0x3;
+	keyMap[SDL_SCANCODE_4] = 0xC;
+
+	keyMap[SDL_SCANCODE_Q] = 0x4;
+	keyMap[SDL_SCANCODE_W] = 0x5;
+	keyMap[SDL_SCANCODE_E] = 0x6;
+	keyMap[SDL_SCANCODE_R] = 0xD;
+
+	keyMap[SDL_SCANCODE_A] = 0x7;
+	keyMap[SDL_SCANCODE_S] = 0x8;
+	keyMap[SDL_SCANCODE_D] = 0x9;
+	keyMap[SDL_SCANCODE_F] = 0xE;
+
+	keyMap[SDL_SCANCODE_Z] = 0xA;
+	keyMap[SDL_SCANCODE_X] = 0x0;
+	keyMap[SDL_SCANCODE_C] = 0xB;
+	keyMap[SDL_SCANCODE_V] = 0xF;
+}
+
 void Renderer::update(const std::array<std::array<uint8_t, CHIP8_WIDTH>, CHIP8_HEIGHT>& screen)
 {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -50,11 +73,20 @@ void Renderer::handleEvents()
 	case SDL_QUIT:
 		bIsRunning = false;
 		break;
+	case SDL_KEYDOWN:
+		if(keyMap.contains(event.key.keysym.scancode) && evtKeyDown){
+			evtKeyDown(keyMap[event.key.keysym.scancode]);
+		}
+		break;
+	case SDL_KEYUP:
+		if(keyMap.contains(event.key.keysym.scancode) && evtKeyUp) {
+			evtKeyUp(keyMap[event.key.keysym.scancode]);
+		}
+		break;
 	default:
 		break;
 	}
 
-	// Move paddles
 	const Uint8* state = SDL_GetKeyboardState(NULL);
 	// Escape key to quit
 	if (state[SDL_SCANCODE_ESCAPE]) {

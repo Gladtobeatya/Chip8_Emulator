@@ -77,5 +77,7 @@ public:
 	DecodedInstr decodeInstr(uint16_t opcode); // Copy faster than ref here
 	void executeInstr(const DecodedInstr& instr);
 	void test();
+	void onKeyDown(uint8_t key);
+	void onKeyUp(uint8_t key);
 };
 

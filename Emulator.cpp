@@ -24,9 +24,23 @@ void Emulator::loadROM(const std::string& path)
 
 }
 
+void Emulator::initFont()
+{
+    for (int i = 0; i < FONT_ARR_SIZE; i++) {
+        cpu.memory[i] = fontset[i];
+	}
+}
+
 void Emulator::run()
 {
     if (!renderer.init()) return;
+	renderer.initKeyMap();
+    renderer.evtKeyDown = [&](uint8_t key) {
+        cpu.onKeyDown(key); };
+    renderer.evtKeyUp = [&](uint8_t key) {
+        cpu.onKeyUp(key); };
+
+	initFont();
 
     while (renderer.isRunning()) {
         renderer.tick();
@@ -40,6 +54,7 @@ void Emulator::run()
         renderer.update(cpu.screen);
         // 60 fps
         renderer.waitForNextFrame();
+		cpu.countDown();
     }
 
     renderer.quit();
