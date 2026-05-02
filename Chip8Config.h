@@ -10,6 +10,8 @@ constexpr int SCREEN_HEIGHT = CHIP8_HEIGHT * SCALE;
 constexpr uint8_t BLACK = 0;
 constexpr uint8_t WHITE = 1;
 
+// 17 operations here to emulate about 1000 cycles per second, which is the original speed of the Chip-8
+constexpr int CYCLES_PER_FRAME = 17;
 constexpr int FPS = 60;
 constexpr int FRAME_DELAY = 1000 / FPS;
 

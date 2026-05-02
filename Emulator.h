@@ -1,6 +1,7 @@
 #pragma once
 #include "CPU.h"
 #include "Renderer.h"
+#include "Audio.h"
 #include <string>
 
 constexpr int FONT_ARR_SIZE = 80;
@@ -29,6 +30,7 @@ class Emulator
 private:
 	CPU cpu;
 	Renderer renderer;
+	Audio audio;
 
 public:
 	void loadROM(const std::string& path);

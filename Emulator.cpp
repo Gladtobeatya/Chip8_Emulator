@@ -40,12 +40,13 @@ void Emulator::run()
     renderer.evtKeyUp = [&](uint8_t key) {
         cpu.onKeyUp(key); };
 
+	audio.init();
 	initFont();
 
     while (renderer.isRunning()) {
         renderer.tick();
-        // 17 operations here to emulate about 1000 cycles per second, which is the original speed of the Chip-8
-        for (int i = 0; i < 17; i++) {
+        
+        for (int i = 0; i < CYCLES_PER_FRAME; i++) {
             uint16_t opcode = cpu.fetchOpcode();
             DecodedInstr instr = cpu.decodeInstr(opcode);
             cpu.executeInstr(instr);
@@ -55,6 +56,7 @@ void Emulator::run()
         // 60 fps
         renderer.waitForNextFrame();
 		cpu.countDown();
+		audio.update(cpu.soundTimer > 0);
     }
 
     renderer.quit();

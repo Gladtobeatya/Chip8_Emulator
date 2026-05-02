@@ -20,6 +20,9 @@ bool Renderer::init()
 		return false;
 	}
 
+	// Set focus
+	SDL_RaiseWindow(window);
+
 	return bIsRunning = true;
 }
 
